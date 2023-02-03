@@ -1,9 +1,7 @@
 package com.gable.runma.model;
-
-import java.util.Date;
+import java.util.*;
 
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,20 +11,26 @@ import javax.persistence.TemporalType;
 
 import lombok.Data;
 
+/**
+ * 
+ */
 @Data
 @Entity
 public class Ticket {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@Enumerated
-	private TicketStatus status;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
-	
-	@ManyToOne
-	private Runner runner;
-	@ManyToOne
-	private RaceType raceType;
+    private Integer id; 
+    private Status status;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date paidDate;
+    @ManyToOne
+    private Runner runner;
+    
+    @ManyToOne
+    private RaceType raceType;
+    
+    
+
 }
