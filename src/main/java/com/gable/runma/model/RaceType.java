@@ -40,6 +40,6 @@ public class RaceType {
     @JoinColumn(name = "event_id")
     private Event event;
     
-    @OneToMany(mappedBy = "raceType")
-    private List<Ticket> ticket;
+    @OneToMany
+    private Ticket ticket;
 }
