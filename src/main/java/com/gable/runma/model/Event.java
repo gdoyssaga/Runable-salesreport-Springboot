@@ -34,7 +34,6 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String location;
     @Temporal(TemporalType.DATE)
     private Date race_Date_time;
     @Temporal(TemporalType.DATE)

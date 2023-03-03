@@ -29,6 +29,7 @@ public class Organizer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	private Integer password;
+	private String name;
     private String contact;
     private String website;
     private String facebook;
@@ -37,5 +38,6 @@ public class Organizer {
     
     @ManyToMany(mappedBy = "organizerList")
     private List<Event> eventList;
+
 
 }
