@@ -42,7 +42,6 @@ public class User {
 	private String subDistrict;
 	private String District;
 	private int postalCode;
-	@ManyToOne
-	private Nationality national;
+
 	
 }
