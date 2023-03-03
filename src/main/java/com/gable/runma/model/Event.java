@@ -42,6 +42,7 @@ public class Event {
     private Date close_Regis_Date;
     private Boolean out_of_ticket_flag;
     private String province;
+    private String location;
     private Integer capacity;
     
     @OneToMany (mappedBy = "event" ,fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE )    
