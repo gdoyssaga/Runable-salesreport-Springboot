@@ -3,6 +3,7 @@ package com.gable.runma.model;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,10 +28,10 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String Username;
 	private String password;
 	private String FName;
 	private String LName;
+	@Column(unique = true)
 	private String email;
 	private String phone;
 	@Enumerated(EnumType.STRING)
@@ -42,6 +44,7 @@ public class User {
 	private String subDistrict;
 	private String District;
 	private int postalCode;
-
-	
+    
+	@OneToMany
+	private Ticket ticket;
 }

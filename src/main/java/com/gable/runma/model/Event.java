@@ -35,13 +35,16 @@ public class Event {
     private Integer id;
     private String name;
     private String location;
-    private String tag;
     @Temporal(TemporalType.DATE)
-    private Date raceDate;
+    private Date race_Date_time;
     @Temporal(TemporalType.DATE)
-    private Date openRegisDate;
+    private Date open_Regis_Date;
     @Temporal(TemporalType.DATE)
-    private Date closeRegisDate;
+    private Date close_Regis_Date;
+    private Boolean out_of_ticket_flag;
+    private String province;
+    private Integer capacity;
+    
     @OneToMany (mappedBy = "event" ,fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE )    
     private List<RaceType> raceTypeList;
     @ManyToMany

@@ -32,10 +32,10 @@ public class RaceType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double price;
-    private String name;
+    private String race_name;
     private Integer distance;
-    private String reward;
     @ManyToOne
+    
     @JoinColumn(name = "event_id")
     private Event event;
 }
