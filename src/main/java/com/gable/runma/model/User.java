@@ -26,12 +26,12 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String Username;
 	private String password;
-	private String firstName;
-	private String lastName;
+	private String FName;
+	private String LName;
 	private String email;
 	private String phone;
-	private Long nid;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	@Temporal(TemporalType.DATE)
@@ -40,7 +40,7 @@ public class User {
 	private String country;
 	private String province;
 	private String subDistrict;
-	private String district;
+	private String District;
 	private int postalCode;
 	@ManyToOne
 	private Nationality national;

@@ -26,7 +26,7 @@ public class Ticket {
     @Temporal(TemporalType.TIMESTAMP)
     private Date paidDate;
     @ManyToOne
-    private Runner runner;
+    private User user;
     
     @ManyToOne
     private RaceType raceType;
