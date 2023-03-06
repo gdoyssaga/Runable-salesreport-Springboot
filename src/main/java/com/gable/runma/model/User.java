@@ -2,22 +2,8 @@ package com.gable.runma.model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,7 +16,7 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 @JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  generator = ObjectIdGenerators.PropertyGenerator.class,
 		  property = "id")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -44,6 +30,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private String phone;
+	private Long nid;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	@Temporal(TemporalType.DATE)
@@ -54,7 +41,7 @@ public class User {
 	private String subDistrict;
 	private String District;
 	private int postalCode;
-    
+
 	@OneToMany(mappedBy = "user")
 	private List<Ticket> ticket;
 }

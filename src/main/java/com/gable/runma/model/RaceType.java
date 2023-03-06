@@ -33,13 +33,14 @@ public class RaceType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double price;
-    private String race_name;
+    private String name;
     private Integer distance;
-    
+
     @ManyToOne
     @JoinColumn(name = "event_id")
+    @JsonIgnore
     private Event event;
-    
-    @OneToMany
-    private Ticket ticket;
+
+    @OneToMany(mappedBy = "raceType")
+    private List<Ticket> ticket;
 }
