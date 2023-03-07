@@ -6,15 +6,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.gable.runma.dto.EventInfoResponse;
-import com.gable.runma.dto.RacetypeDetailResponse;
 import com.gable.runma.model.Event;
 import com.gable.runma.model.RaceType;
 import com.gable.runma.repository.EventRepository;
 import com.gable.runma.repository.OrganizerRepository;
 import com.gable.runma.repository.RaceTypeRepository;
 
-import com.gable.runma.exceptionHandling.EventException;
 
 @Service
 public class EventService {
@@ -100,7 +97,7 @@ public class EventService {
 		
 		return rtRepo.save(raceType);
 	}
-	
+	/*
 	public EventInfoResponse getEventInfo(Integer id){
 		Event event = repo.findById(id).orElseThrow();
 		EventInfoResponse info = new EventInfoResponse();
@@ -125,6 +122,7 @@ public class EventService {
 
 		return  info;
 	}
+	*/
 }
 
 

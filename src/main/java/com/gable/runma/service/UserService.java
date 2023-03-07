@@ -6,14 +6,17 @@ import com.gable.runma.exception.ResourceNotFoundException;
 import com.gable.runma.model.Event;
 import com.gable.runma.model.Ticket;
 import com.gable.runma.model.User;
+import com.gable.runma.repository.OrganizerRepository;
 import com.gable.runma.repository.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import com.gable.runma.repository.UserRepository;
 
+import java.util.List;
+
+
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -111,4 +114,30 @@ public class UserService {
 		}
 	}
 
-}
+	private OrganizerRepository orgRepo;
+	
+//	public UserService() {
+//		System.out.println("UserService constructor called. repo: " + repo + ", orgRepo: " + orgRepo);
+//	}
+
+
+	
+
+	public boolean validateUser(String email, String password) {
+		User existinguser = repo.findByEmail(email);
+		if (existinguser != null && existinguser.getPassword().equals(password)) {
+			return true;
+		}else
+		return false;
+	}
+	
+//	public User validateUser(User usr) {
+//		User existinguser = repo.findByEmail(usr.getEmail());
+//		if (existinguser != null && existinguser.getEmail().equals(usr.getEmail()) & existinguser.getPassword().equals(usr.getPassword())) {
+//			return usr;
+//		}
+//		return usr;
+	}
+
+
+
