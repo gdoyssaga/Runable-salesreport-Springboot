@@ -1,12 +1,7 @@
 package com.gable.runma.model;
-import java.util.*;
-
+import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
-
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,9 +10,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 
-/**
- *
- */
+
+
 @Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler" })
@@ -40,16 +34,26 @@ public class Event {
 
     @OneToMany (
             mappedBy = "event" ,fetch = FetchType.LAZY,
-            cascade = {CascadeType.REMOVE,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true
+            )
     private List<RaceType> raceTypeList;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REFRESH}
-    )
+            )
     @JoinTable(name = "EventOrganizer",  joinColumns =  @JoinColumn(name = "EventId", referencedColumnName = "id") ,
             inverseJoinColumns =  @JoinColumn(name = "OrganizerId", referencedColumnName = "id") )
     private List<Organizer> organizerList;
 
+    public void addRaceType(RaceType rt) {
+        rt.setEvent(this);
+        raceTypeList.add(rt);
+    }
+
+    public void removeRaceType(RaceType rt) {
+        raceTypeList.remove(rt);
+        rt.setEvent(null);
+    }
 }

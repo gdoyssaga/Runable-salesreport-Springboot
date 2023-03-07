@@ -19,7 +19,6 @@ import lombok.Data;
         scope = Organizer.class,
 		  generator = ObjectIdGenerators.PropertyGenerator.class,
 		  property = "id")
-
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Organizer {
 	@Id
@@ -38,5 +37,4 @@ public class Organizer {
             mappedBy = "organizerList")
     @JsonIgnore
     private List<Event> eventList;
-
 }

@@ -1,16 +1,16 @@
 package com.gable.runma.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gable.runma.model.Organizer;
-import com.gable.runma.model.Event;
 import com.gable.runma.model.RaceType;
+import com.gable.runma.model.Event;
 import com.gable.runma.repository.EventRepository;
 import com.gable.runma.repository.OrganizerRepository;
 import com.gable.runma.repository.RaceTypeRepository;
@@ -101,6 +101,18 @@ public class EventService {
 		{
 			oldEvent.setOrganizerList(null);
 		}
+
+		oldEvent.getRaceTypeList().clear();
+		eventRepo.save(oldEvent);
+
+		if(newEvent.getRaceTypeList() != null) {
+			for(RaceType requestRaceType: newEvent.getRaceTypeList()){
+				requestRaceType.setEvent(oldEvent);
+				raceRepo.save(requestRaceType);
+			}
+			//oldEvent.setRaceTypeList(newRestType);
+		}
+
 		return eventRepo.save(oldEvent);
 	}
 
