@@ -33,7 +33,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/user/{userId}")
-	public List<Ticket> getByUserId(@PathVariable Integer userId){
+	public List<Ticket> searchByUser(@PathVariable Integer userId){
 		return service.findUserTicket(userId);
 	}
 
