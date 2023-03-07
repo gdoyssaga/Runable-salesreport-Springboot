@@ -3,12 +3,14 @@ package com.gable.runma.service;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gable.runma.model.Event;
 import com.gable.runma.model.RaceType;
 import com.gable.runma.repository.EventRepository;
+import com.gable.runma.repository.OrganizerRepository;
 import com.gable.runma.repository.RaceTypeRepository;
 
 @Service
@@ -38,6 +40,28 @@ public class EventService {
 
 		return repo.save(event);
 	}
+
+
+	@Autowired
+	private OrganizerRepository organizerRepository;
+
+	
+	// post event
+
+//	public void save(Event theEvent, Integer ogId) {
+//		Optional<Organizer> byId = organizerRepository.findById(ogId);
+//
+//		if (byId.isPresent()) {
+//			Organizer organizer = byId.get();
+//			List<Event> eventList = organizer.getEventList();
+//
+//			eventList.add(theEvent);
+//			organizer.setEventList(eventList);
+//
+//			organizerRepository.save(organizer);
+//		} else {
+//			throw new RuntimeException("Organizer with id " + ogId + " not found.");
+//		}
 
 	public Event update(Event data) {
 		Event event = repo.findById(data.getId()).orElseThrow();

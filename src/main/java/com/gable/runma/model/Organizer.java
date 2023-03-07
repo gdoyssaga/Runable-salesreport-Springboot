@@ -1,6 +1,7 @@
 package com.gable.runma.model;
 import java.util.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,7 @@ public class Organizer {
     private String contact;
     private String website;
     private String facebook;
+    @Column(unique = true)
     private String email;
     
     

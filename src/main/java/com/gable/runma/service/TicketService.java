@@ -1,12 +1,15 @@
 package com.gable.runma.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.gable.runma.dto.TicketRequest;
 import com.gable.runma.exception.RaceTypeNotFoundException;
+import com.gable.runma.exception.ResourceNotFoundException;
 import com.gable.runma.exception.UserNotFoundException;
 import com.gable.runma.model.RaceType;
 import com.gable.runma.model.Status;
@@ -47,4 +50,14 @@ public class TicketService {
 	public List<Ticket> findAll() {
 		return ticketRepo.findAll();
 	}
+
+
+    //get ticket by ticketId
+    public Ticket getTicket(Integer id) {
+        Ticket ticket = ticketRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket with id: " + id + " does not exist"));
+        return ResponseEntity.ok(ticket).getBody();
+    }
+
+    
 }

@@ -41,4 +41,5 @@ public class Ticket {
     @JoinColumn(name="race_type_id", nullable = false)
     private RaceType raceType;
     
+
 }
