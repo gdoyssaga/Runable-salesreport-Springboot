@@ -1,6 +1,10 @@
 package com.gable.runma.model;
 import java.util.*;
 
+<<<<<<< Upstream, based on origin/master
+=======
+
+>>>>>>> 76cebeb merge from suebkwan
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

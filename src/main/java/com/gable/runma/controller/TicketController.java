@@ -31,6 +31,11 @@ public class TicketController {
 	public ResponseEntity<Ticket> create(@Valid @RequestBody TicketRequest req) {
 		return new ResponseEntity<Ticket>(service.create(req), HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/user/{userId}")
+	public List<Ticket> searchByUser(@PathVariable Integer userId){
+		return service.findUserTicket(userId);
+	}
 
 
         //get all tickets
