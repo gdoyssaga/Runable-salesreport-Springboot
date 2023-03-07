@@ -30,14 +30,11 @@ public class TicketController {
 	@PostMapping("")
 	public ResponseEntity<Ticket> create(@Valid @RequestBody TicketRequest req) {
 		return new ResponseEntity<Ticket>(service.create(req), HttpStatus.CREATED);
-<<<<<<< Upstream, based on origin/master
-=======
 	}
 	
-	@GetMapping("/{userId}")
+	@GetMapping("/user/{userId}")
 	public List<Ticket> getByUserId(@PathVariable Integer userId){
 		return service.findUserTicket(userId);
->>>>>>> 76cebeb merge from suebkwan
 	}
 
 
