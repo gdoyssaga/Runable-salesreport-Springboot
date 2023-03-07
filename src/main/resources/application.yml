@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+#<<<<<<< HEAD
 spring:  
   h2:
     console:
@@ -14,7 +14,7 @@ spring:
       ddl-auto: update
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       
-=======
+#=======
 #spring:
 #  h2:
 #    console:
@@ -30,19 +30,19 @@ spring:
 #      ddl-auto: update
 #      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 #
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/demo?useSSL=false
-    username: root
-    password: root
-  jpa:
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
-
-server:
-  error:
-    include-message: always
->>>>>>> refs/heads/suebkwan
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/demo?useSSL=false
+#    username: root
+#    password: root
+#  jpa:
+##    properties:
+##      hibernate:
+##        dialect: org.hibernate.dialect.MySQL8Dialect
+#    hibernate:
+#      ddl-auto: update
+#
+#server:
+#  error:
+#    include-message: always
+#>>>>>>> refs/heads/suebkwan
