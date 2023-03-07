@@ -34,14 +34,17 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Temporal(TemporalType.DATE)
+    private Date race_Date_time;
+    @Temporal(TemporalType.DATE)
+    private Date open_Regis_Date;
+    @Temporal(TemporalType.DATE)
+    private Date close_Regis_Date;
+    private Boolean out_of_ticket_flag;
+    private String province;
     private String location;
-    private String tag;
-    @Temporal(TemporalType.DATE)
-    private Date raceDate;
-    @Temporal(TemporalType.DATE)
-    private Date openRegisDate;
-    @Temporal(TemporalType.DATE)
-    private Date closeRegisDate;
+    private Integer capacity;
+    
     @OneToMany (mappedBy = "event" ,fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE )    
     private List<RaceType> raceTypeList;
     @ManyToMany

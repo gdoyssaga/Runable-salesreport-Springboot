@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,13 +28,16 @@ public class Organizer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String name;
+	private Integer password;
+	private String name;
     private String contact;
     private String website;
     private String facebook;
     private String email;
+    
+    
     @ManyToMany(mappedBy = "organizerList")
     private List<Event> eventList;
+
 
 }
