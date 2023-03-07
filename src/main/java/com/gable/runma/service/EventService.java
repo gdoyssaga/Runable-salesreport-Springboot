@@ -1,63 +1,114 @@
 package com.gable.runma.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.gable.runma.dto.EventInfoResponse;
-import com.gable.runma.dto.RacetypeDetailResponse;
 
-import com.gable.runma.model.RaceType;
-import com.gable.runma.repository.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.gable.runma.dto.EventInfoResponse;
+import com.gable.runma.dto.RacetypeDetailResponse;
 import com.gable.runma.model.Event;
+import com.gable.runma.model.RaceType;
 import com.gable.runma.repository.EventRepository;
+import com.gable.runma.repository.OrganizerRepository;
 import com.gable.runma.repository.RaceTypeRepository;
+
 import com.gable.runma.exceptionHandling.EventException;
 
 @Service
 public class EventService {
+
 	@Autowired
-	private EventRepository eventRepo;
+	private EventRepository repo;
 	@Autowired
-	private RaceTypeRepository raceRepo;
+	private RaceTypeRepository rtRepo;
 	@Autowired
 	private OrganizerRepository orgRepo;
-
-	public EventService() {
-	}
+	//@Autowired
+	//private OrganizerRepository organizerRepository;
 
 	public List<Event> findAll() {
-		return eventRepo.findAll();
+		return repo.findAll();
 	}
 
-	//Need to add exception NotFound
-	public Optional<Event> findOne(Integer id) {
-//		return eventRepo.findById(id).orElseThrow(() -> {
-//			throw new EventException("Event Not Found");
-//		});
-//	}
-		try{
-			Optional<Event> event = eventRepo.findById(id);
-			if(event.isEmpty()) {
-				throw new EventException("Event not found");
-			} else {
-				return event;
+	public Event newEvent(Event event) {
+		Event e = repo.save(event);
+		if (event.getRaceTypeList() != null) {
+			for (RaceType rt : event.getRaceTypeList()) {
+				rt.setEvent(e);
+				rtRepo.save(rt);
+
 			}
-		} catch (EventException e) {
-			return Optional.empty();
 		}
+		if (event.getOrganizerList() != null) {
+			
+		}
+
+		return repo.save(event);
 	}
 
+
+	
+	
+	// post event
+
+//	public void save(Event theEvent, Integer ogId) {
+//		Optional<Organizer> byId = organizerRepository.findById(ogId);
+//
+//		if (byId.isPresent()) {
+//			Organizer organizer = byId.get();
+//			List<Event> eventList = organizer.getEventList();
+//
+//			eventList.add(theEvent);
+//			organizer.setEventList(eventList);
+//
+//			organizerRepository.save(organizer);
+//		} else {
+//			throw new RuntimeException("Organizer with id " + ogId + " not found.");
+//		}
+
+	public Event update(Event data) {
+		Event event = repo.findById(data.getId()).orElseThrow();
+		if (event != null) {
+		
+			return repo.save(data);
+		}
+		return event;
+	}	
+	public void delete(Integer id) {
+		repo.deleteById(id);
+		/*
+		Event event = repo.findById(id).orElse(null);
+		if (event != null) {
+		
+			repo.delete(event);
+		}
+		*/
+	}
+
+	public Event findOne(Integer id) {
+		Optional<Event> op = repo.findById(id);
+		Event result = op.orElseThrow();
+		return result;
+	}
+
+	public RaceType newRaceType(RaceType raceType) {
+		Event event = repo.findById(raceType.getEvent().getId()).orElseThrow();
+		raceType.setEvent(event);
+		
+		
+		return rtRepo.save(raceType);
+	}
+	
 	public EventInfoResponse getEventInfo(Integer id){
-		Event event = eventRepo.findById(id).orElseThrow();
+		Event event = repo.findById(id).orElseThrow();
 		EventInfoResponse info = new EventInfoResponse();
 
 		info.setEventName(event.getName());
 		info.setLocation(event.getLocation());
-
+		
+		
 		List<RacetypeDetailResponse> newraceTypeList = new ArrayList<>();
 		List<RacetypeDetailResponse> oldraceTypelist;
 
@@ -74,14 +125,6 @@ public class EventService {
 
 		return  info;
 	}
-
-
-
-
-
-
-
-
-
-
 }
+
+

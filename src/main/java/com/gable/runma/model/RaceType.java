@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,10 +33,13 @@ public class RaceType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double price;
-    private String name;
+    private String race_name;
     private Integer distance;
-    private String reward;
+    
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
+    
+    @OneToMany(mappedBy = "raceType")
+    private List<Ticket> ticket;
 }

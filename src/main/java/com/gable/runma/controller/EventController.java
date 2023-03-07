@@ -26,7 +26,7 @@ public class EventController {
 	public List<Event> findAll(){
 		return service.findAll();
 	}
-	
+
 	@PostMapping("/")
 	public Event newEvent(@RequestBody Event event) {
 		return service.newEvent(event);

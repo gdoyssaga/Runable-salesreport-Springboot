@@ -8,5 +8,4 @@ import lombok.Data;
 @Entity
 @Data
 public class Admin extends User {
-	private String permission;
 }
