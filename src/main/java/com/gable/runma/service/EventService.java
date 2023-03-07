@@ -5,6 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import com.gable.runma.dto.EventInfoResponse;
+import com.gable.runma.dto.RacetypeDetailResponse;
+
+import com.gable.runma.model.RaceType;
+import com.gable.runma.repository.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +23,6 @@ import com.gable.runma.exceptionHandling.EventException;
 
 @Service
 public class EventService {
-
 	@Autowired
 	private EventRepository eventRepo;
 	@Autowired
@@ -133,6 +137,30 @@ public class EventService {
 			}
 		}
 		return eventRepo.save(oldEvent);
+	}
+
+	public EventInfoResponse getEventInfo(Integer id){
+		Event event = eventRepo.findById(id).orElseThrow();
+		EventInfoResponse infoDTO = new EventInfoResponse(); //DTO
+
+		infoDTO.setEventName(event.getName());
+		infoDTO.setLocation(event.getLocation());
+
+		List<RacetypeDetailResponse> ticketRaceTypeInfo = new ArrayList<RacetypeDetailResponse>();
+
+
+		for (RaceType r : event.getRaceTypeList()) {
+
+			RacetypeDetailResponse singleTicketRaceType = new RacetypeDetailResponse();
+			singleTicketRaceType.setRaceName(r.getName());
+			singleTicketRaceType.setPrice(r.getPrice());
+			singleTicketRaceType.setDistance(r.getDistance());
+			//singleTicketRaceType.setSales();
+			ticketRaceTypeInfo.add(singleTicketRaceType);
+		}
+
+		infoDTO.setRaceTypeDetailList(ticketRaceTypeInfo);
+		return  infoDTO;
 	}
 
 }
