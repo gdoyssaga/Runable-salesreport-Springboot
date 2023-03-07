@@ -33,6 +33,10 @@ public class EventController {
 	public Optional<Event> findOne(@PathVariable Integer id){
 		return service.findOne(id);
 	}
+	@GetMapping("/organizer/{id}")
+	public List<Event> getByOrg(@PathVariable Integer id){
+		return service.findByOrg(id);
+	}
 
 	@PostMapping("/")
 	public Event newEvent(@RequestBody Event event) {
