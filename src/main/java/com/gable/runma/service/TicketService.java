@@ -50,14 +50,16 @@ public class TicketService {
 	public List<Ticket> findAll() {
 		return ticketRepo.findAll();
 	}
-
-
     //get ticket by ticketId
     public Ticket getTicket(Integer id) {
         Ticket ticket = ticketRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket with id: " + id + " does not exist"));
         return ResponseEntity.ok(ticket).getBody();
     }
-
-    
+	
+	public List<Ticket> findUserTicket(Integer id){
+		User user = userRepo.findById(id).orElseThrow();
+		List<Ticket> tic = user.getTicket();
+		return tic;
+	}
 }
