@@ -6,5 +6,6 @@ import com.gable.runma.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    public User findByEmail(String email);
+	User findByEmail(String email);
+
 }
