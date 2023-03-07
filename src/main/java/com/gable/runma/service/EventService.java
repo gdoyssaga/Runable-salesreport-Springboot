@@ -78,22 +78,34 @@ public class EventService {
 		oldEvent.setLocation(newEvent.getLocation());
 		oldEvent.setCapacity(newEvent.getCapacity());
 
+//		if(newEvent.getOrganizerList() != null) {
+//			List <Organizer> pendingOrg = new ArrayList<Organizer>();
+//			for (Organizer newOrg : newEvent.getOrganizerList()) {
+//				try{
+//					Optional<Organizer> findOrg = orgRepo.findById(newOrg.getId());
+//					if(findOrg.isEmpty()) {
+//						throw new EventException("Update Fail : Organizer not found");
+//					} else {
+//						pendingOrg.add(newOrg);
+//					}
+//				} catch (EventException e) {
+//					System.out.println("Update Fail : Organizer not found"+e);
+//				}
+//			}
+//			oldEvent.setOrganizerList(pendingOrg);
+//		} else
+//		{
+//			oldEvent.setOrganizerList(null);
+//		}
+
 		if(newEvent.getOrganizerList() != null) {
 			List <Organizer> pendingOrg = new ArrayList<Organizer>();
 			for (Organizer newOrg : newEvent.getOrganizerList()) {
-				try{
-					Optional<Organizer> findOrg = orgRepo.findById(newOrg.getId());
-					if(findOrg.isEmpty()) {
-						throw new EventException("Update Fail : Organizer not found");
-					} else {
-						pendingOrg.add(newOrg);
-					}
-				} catch (EventException e) {
-					System.out.println("Update Fail : Organizer not found"+e);
+				Organizer findOrg = orgRepo.findById(newOrg.getId()).orElseThrow(() -> {throw new EventException("Update Fail : Event Not Found");});
+				pendingOrg.add(findOrg);
 				}
-			}
 			oldEvent.setOrganizerList(pendingOrg);
-		} else
+			} else
 		{
 			oldEvent.setOrganizerList(null);
 		}
