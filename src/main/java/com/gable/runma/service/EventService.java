@@ -5,14 +5,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gable.runma.model.Organizer;
 import com.gable.runma.model.RaceType;
 import com.gable.runma.model.Event;
-import com.gable.runma.repository.EventRepository;
 import com.gable.runma.repository.OrganizerRepository;
+import com.gable.runma.repository.EventRepository;
 import com.gable.runma.repository.RaceTypeRepository;
 import com.gable.runma.exceptionHandling.EventException;
 
@@ -33,6 +35,7 @@ public class EventService {
 		return eventRepo.findAll();
 	}
 
+
 	public Optional<Event> findOne(Integer id) {
 		try{
 			Optional<Event> event = eventRepo.findById(id);
@@ -45,6 +48,7 @@ public class EventService {
 			return Optional.empty();
 		}
 	}
+
 
 	public Event newEvent(Event event) {
 		Event e = eventRepo.save(event);
@@ -74,14 +78,6 @@ public class EventService {
 		oldEvent.setLocation(newEvent.getLocation());
 		oldEvent.setCapacity(newEvent.getCapacity());
 
-		if(newEvent.getRaceTypeList() != null) {
-			List<RaceType> pendingRaceType = new ArrayList<RaceType>();
-			pendingRaceType.addAll(newEvent.getRaceTypeList());
-			oldEvent.setRaceTypeList(pendingRaceType);
-		} else
-		{
-			oldEvent.setRaceTypeList(null);
-		}
 		if(newEvent.getOrganizerList() != null) {
 			List <Organizer> pendingOrg = new ArrayList<Organizer>();
 			for (Organizer newOrg : newEvent.getOrganizerList()) {
@@ -110,9 +106,7 @@ public class EventService {
 				requestRaceType.setEvent(oldEvent);
 				raceRepo.save(requestRaceType);
 			}
-			//oldEvent.setRaceTypeList(newRestType);
 		}
-
 		return eventRepo.save(oldEvent);
 	}
 
