@@ -53,35 +53,27 @@ public class EventService {
 
 	public EventInfoResponse getEventInfo(Integer id){
 		Event event = eventRepo.findById(id).orElseThrow();
-		EventInfoResponse info = new EventInfoResponse();
+		EventInfoResponse infoDTO = new EventInfoResponse(); //DTO
 
-		info.setEventName(event.getName());
-		info.setLocation(event.getLocation());
+		infoDTO.setEventName(event.getName());
+		infoDTO.setLocation(event.getLocation());
 
-		List<RacetypeDetailResponse> newraceTypeList = new ArrayList<>();
-		List<RacetypeDetailResponse> oldraceTypelist;
+		List<RacetypeDetailResponse> ticketRaceTypeInfo = new ArrayList<RacetypeDetailResponse>();
+
 
 		for (RaceType r : event.getRaceTypeList()) {
-//					newraceTypeList.set
+
+			RacetypeDetailResponse singleTicketRaceType = new RacetypeDetailResponse();
+			singleTicketRaceType.setRaceName(r.getName());
+			singleTicketRaceType.setPrice(r.getPrice());
+			singleTicketRaceType.setDistance(r.getDistance());
+			//singleTicketRaceType.setSales();
+			ticketRaceTypeInfo.add(singleTicketRaceType);
 		}
-//
-//
-//		for (int i = 0; i < event.getRaceTypeList().size(); i++) {
-//			newraceTypeList.set();
-//		}
 
-//		info.setRaceTypeDetailList(newraceTypeList);
-
-		return  info;
+		infoDTO.setRaceTypeDetailList(ticketRaceTypeInfo);
+		return  infoDTO;
 	}
-
-
-
-
-
-
-
-
 
 
 }
