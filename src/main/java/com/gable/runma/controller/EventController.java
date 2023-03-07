@@ -43,14 +43,9 @@ public class EventController {
 	public Event update(@RequestBody Event event, @PathVariable Integer id){
 		return service.update(event);
 	}
-	
-	@GetMapping("/{id}")
-	Event findOne(@PathVariable Integer id) {
-		return service.findOne(id);
-	}
 
-	@DeleteMapping("/{id}")
-	void delete(@PathVariable Integer id) {
-		service.delete(id);
-	}
+//	@DeleteMapping("/{id}")
+//	void delete(@PathVariable Integer id) {
+//		service.delete(id);
+//	}
 }
