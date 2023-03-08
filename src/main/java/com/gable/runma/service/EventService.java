@@ -27,8 +27,26 @@ public class EventService {
 	private RaceTypeRepository raceRepo;
 	@Autowired
 	private OrganizerRepository orgRepo;
-
-	public EventService() {
+	
+	public List<Event> getAllEvent() {
+		return eventRepo.findAll();
+	}
+	public List<Event> findByOrg(int Orgid)
+	{
+		List<Event> allEvents = eventRepo.findAll();
+		Organizer Org = orgRepo.findById(Orgid).orElseThrow();
+		List<Event> result = new ArrayList<Event>();
+		for (Event event : allEvents)
+		{
+			if(event.getOrganizerList().contains(Org) )
+			{
+				result.add(event);
+			}
+			
+		}
+		
+		return result;
+		
 	}
 
 	public List<Event> findAll() {
