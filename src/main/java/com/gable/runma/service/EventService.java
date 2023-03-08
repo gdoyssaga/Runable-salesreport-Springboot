@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,37 +25,34 @@ public class EventService {
 	private RaceTypeRepository raceRepo;
 	@Autowired
 	private OrganizerRepository orgRepo;
-	
+
 	public List<Event> getAllEvent() {
 		return eventRepo.findAll();
 	}
-	public List<Event> findByOrg(int Orgid)
-	{
+
+	public List<Event> findByOrg(int Orgid) {
 		List<Event> allEvents = eventRepo.findAll();
 		Organizer Org = orgRepo.findById(Orgid).orElseThrow();
 		List<Event> result = new ArrayList<Event>();
-		for (Event event : allEvents)
-		{
-			if(event.getOrganizerList().contains(Org) )
-			{
+		for (Event event : allEvents) {
+			if (event.getOrganizerList().contains(Org)) {
 				result.add(event);
 			}
-			
+
 		}
-		
+
 		return result;
-		
+
 	}
 
 	public List<Event> findAll() {
 		return eventRepo.findAll();
 	}
 
-
 	public Optional<Event> findOne(Integer id) {
-		try{
+		try {
 			Optional<Event> event = eventRepo.findById(id);
-			if(event.isEmpty()) {
+			if (event.isEmpty()) {
 				throw new EventException("Event not found");
 			} else {
 				return event;
@@ -66,7 +61,6 @@ public class EventService {
 			return Optional.empty();
 		}
 	}
-
 
 	public Event newEvent(Event event) {
 		Event e = eventRepo.save(event);
@@ -83,9 +77,9 @@ public class EventService {
 
 	public Event update(Event newEvent) {
 		Event oldEvent;
-		oldEvent = eventRepo.findById(newEvent.getId()).orElseThrow(
-				() -> {throw new EventException("Update Fail : Event Not Found");}
-		);
+		oldEvent = eventRepo.findById(newEvent.getId()).orElseThrow(() -> {
+			throw new EventException("Update Fail : Event Not Found");
+		});
 
 		oldEvent.setName(newEvent.getName());
 		oldEvent.setRaceDate(newEvent.getRaceDate());
@@ -116,23 +110,24 @@ public class EventService {
 //			oldEvent.setOrganizerList(null);
 //		}
 
-		if(newEvent.getOrganizerList() != null) {
-			List <Organizer> pendingOrg = new ArrayList<Organizer>();
+		if (newEvent.getOrganizerList() != null) {
+			List<Organizer> pendingOrg = new ArrayList<Organizer>();
 			for (Organizer newOrg : newEvent.getOrganizerList()) {
-				Organizer findOrg = orgRepo.findById(newOrg.getId()).orElseThrow(() -> {throw new EventException("Update Fail : Event Not Found");});
+				Organizer findOrg = orgRepo.findById(newOrg.getId()).orElseThrow(() -> {
+					throw new EventException("Update Fail : Event Not Found");
+				});
 				pendingOrg.add(findOrg);
-				}
+			}
 			oldEvent.setOrganizerList(pendingOrg);
-			} else
-		{
+		} else {
 			oldEvent.setOrganizerList(null);
 		}
 
 		oldEvent.getRaceTypeList().clear();
 		eventRepo.save(oldEvent);
 
-		if(newEvent.getRaceTypeList() != null) {
-			for(RaceType requestRaceType: newEvent.getRaceTypeList()){
+		if (newEvent.getRaceTypeList() != null) {
+			for (RaceType requestRaceType : newEvent.getRaceTypeList()) {
 				requestRaceType.setEvent(oldEvent);
 				raceRepo.save(requestRaceType);
 			}

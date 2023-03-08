@@ -1,7 +1,5 @@
 package com.gable.runma.controller;
 
-
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,31 +21,29 @@ import com.gable.runma.service.TicketService;
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {
-	
+
 	@Autowired
 	private TicketService service;
-	
+
 	@PostMapping("")
 	public ResponseEntity<Ticket> create(@Valid @RequestBody TicketRequest req) {
-		return new ResponseEntity<Ticket>(service.create(req), HttpStatus.CREATED);
+		return new ResponseEntity<Ticket>(service.newTicket(req), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/user/{userId}")
-	public List<Ticket> searchByUser(@PathVariable Integer userId){
+	public List<Ticket> searchByUser(@PathVariable Integer userId) {
 		return service.findUserTicket(userId);
 	}
 
+	// get all tickets
+	@GetMapping("/")
+	public List<Ticket> findAll() {
+		return service.findAll();
+	}
 
-        //get all tickets
-        @GetMapping("/")
-         public List<Ticket> findAll(){
-        return service.findAll();
-    }
+	@GetMapping("/{id}")
+	Ticket findOne(@PathVariable Integer id) {
+		return service.findOne(id);
+	}
 
-        @GetMapping("/{id}")
-        Ticket findOne(@PathVariable Integer id) {
-            return service.getTicket(id);
-        }
-
-        
 }

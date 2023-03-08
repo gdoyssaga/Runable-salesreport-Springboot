@@ -1,4 +1,5 @@
 package com.gable.runma.model;
+
 import java.util.*;
 
 import javax.persistence.*;
@@ -15,26 +16,22 @@ import lombok.Data;
  */
 @Data
 @Entity
-@JsonIdentityInfo(
-        scope = Organizer.class,
-		  generator = ObjectIdGenerators.PropertyGenerator.class,
-		  property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(scope = Organizer.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Organizer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	private Integer id;
 	private Integer password;
 	private String name;
-    private String contact;
-    private String website;
-    private String facebook;
-    @Column(unique = true)
-    private String email;
+	private String contact;
+	private String website;
+	private String facebook;
+	@Column(unique = true)
+	private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.REFRESH},
-            mappedBy = "organizerList")
-    @JsonIgnore
-    private List<Event> eventList;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.REFRESH }, mappedBy = "organizerList")
+	@JsonIgnore
+	private List<Event> eventList;
 }

@@ -19,27 +19,26 @@ import com.gable.runma.service.OrganizerService;
 public class OrganizerController {
 
 	@Autowired
-	private OrganizerService service ;
-	
+	private OrganizerService service;
+
 	@GetMapping("/")
-	public List<Organizer> findAll(){
-		return  service.findAll();
+	public List<Organizer> findAll() {
+		return service.findAll();
 	}
+
 	@PostMapping("/")
 	public Organizer newOrganizer(@RequestBody Organizer org) {
 		return service.newOrganizer(org);
 	}
-	
+
 	@PutMapping("/{id}")
 	public Organizer updateOrganizer(@RequestBody Organizer org) {
-		return service.updateOrganizer(org);
+		return service.update(org);
 	}
-	
-	
 
-	//getOrganizer
+	// getOrganizer
 	@GetMapping("/{id}")
 	Organizer findOne(@PathVariable Integer id) {
-		return service.getOrganizer(id);
+		return service.findOne(id);
 	}
 }

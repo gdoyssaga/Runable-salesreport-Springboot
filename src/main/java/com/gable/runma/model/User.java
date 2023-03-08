@@ -15,18 +15,16 @@ import lombok.Data;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class,
-		  property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String password;
-	private String FName;
-	private String LName;
+	private String firstName;
+	private String lastName;
 	@Column(unique = true)
 	private String email;
 	private String phone;
@@ -39,7 +37,7 @@ public class User {
 	private String country;
 	private String province;
 	private String subDistrict;
-	private String District;
+	private String district;
 	private int postalCode;
 
 	@OneToMany(mappedBy = "user")

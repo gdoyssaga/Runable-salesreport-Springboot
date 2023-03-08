@@ -1,6 +1,5 @@
 package com.gable.runma.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +20,43 @@ import com.gable.runma.repository.UserRepository;
 
 @Service
 public class TicketService {
-	
+
 	@Autowired
 	private RaceTypeRepository raceTypeRepo;
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
 	private TicketRepository ticketRepo;
-	
-	public Ticket create(TicketRequest req) {
-		
+
+	public Ticket newTicket(TicketRequest req) {
+
 		Ticket ticket = new Ticket();
-		
+
 		RaceType rt = raceTypeRepo.findById(req.raceTypeId())
 				.orElseThrow(() -> new RaceTypeNotFoundException("The RaceType Not Exist"));
-		User user = userRepo.findById(req.userId())
-				.orElseThrow(() -> new UserNotFoundException("The User Not Exist"));
-		
+		User user = userRepo.findById(req.userId()).orElseThrow(() -> new UserNotFoundException("The User Not Exist"));
+
 		ticket.setCreateDate(req.createDate());
 		ticket.setStatus(Status.unpaid);
 		ticket.setRaceType(rt);
 		ticket.setUser(user);
-		
+
 		return ticketRepo.save(ticket);
-		
+
 	}
-	
+
 	public List<Ticket> findAll() {
 		return ticketRepo.findAll();
 	}
-    //get ticket by ticketId
-    public Ticket getTicket(Integer id) {
-        Ticket ticket = ticketRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ticket with id: " + id + " does not exist"));
-        return ResponseEntity.ok(ticket).getBody();
-    }
-	
-	public List<Ticket> findUserTicket(Integer id){
+
+	// get ticket by ticketId
+	public Ticket findOne(Integer id) {
+		Ticket ticket = ticketRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket with id: " + id + " does not exist"));
+		return ResponseEntity.ok(ticket).getBody();
+	}
+
+	public List<Ticket> findUserTicket(Integer id) {
 		User user = userRepo.findById(id).orElseThrow();
 		List<Ticket> tic = user.getTicket();
 		return tic;

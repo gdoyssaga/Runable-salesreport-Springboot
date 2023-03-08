@@ -23,18 +23,19 @@ public class EventController {
 
 	@Autowired
 	private EventService service;
-	
+
 	@GetMapping("/")
-	public List<Event> findAll(){
+	public List<Event> findAll() {
 		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Event> findOne(@PathVariable Integer id){
+	public Optional<Event> findOne(@PathVariable Integer id) {
 		return service.findOne(id);
 	}
+
 	@GetMapping("/organizer/{id}")
-	public List<Event> getByOrg(@PathVariable Integer id){
+	public List<Event> getByOrg(@PathVariable Integer id) {
 		return service.findByOrg(id);
 	}
 
@@ -44,7 +45,7 @@ public class EventController {
 	}
 
 	@PutMapping("/{id}")
-	public Event update(@RequestBody Event event, @PathVariable Integer id){
+	public Event update(@RequestBody Event event, @PathVariable Integer id) {
 		return service.update(event);
 	}
 

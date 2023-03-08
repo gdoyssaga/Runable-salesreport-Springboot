@@ -24,36 +24,33 @@ public class OrganizerService {
 		return repo.findAll();
 	}
 
-	
-
-	public Organizer updateOrganizer(Organizer newValue) {
+	public Organizer update(Organizer newValue) {
 		Organizer old = repo.findById(newValue.getId()).orElseThrow();
 		old.setContact(newValue.getContact());
 		old.setEmail(newValue.getEmail());
 		old.setFacebook(newValue.getFacebook());
 		old.setName(newValue.getName());
 		old.setWebsite(newValue.getWebsite());
-		
+
 		old.getEventList().clear();
-		
+
 		for (Event event : newValue.getEventList()) {
-			 System.out.println(event.getId());
-			 
-			 Event objEvent =  evtRepo.findById(event.getId()).orElseThrow();
-			 old.getEventList().add(objEvent);
-			 if (! objEvent.getOrganizerList().contains(old)) {
-				 objEvent.getOrganizerList().add(old);
-				 evtRepo.save(objEvent);
-			 }
+			System.out.println(event.getId());
+
+			Event objEvent = evtRepo.findById(event.getId()).orElseThrow();
+			old.getEventList().add(objEvent);
+			if (!objEvent.getOrganizerList().contains(old)) {
+				objEvent.getOrganizerList().add(old);
+				evtRepo.save(objEvent);
+			}
 		}
-		
-		
+
 		repo.save(old);
 		return old;
 
 	}
 
-	//Create organizer
+	// Create organizer
 	public Organizer newOrganizer(Organizer org) {
 		Organizer existingOrganizer = repo.findByEmail(org.getEmail());
 		if (existingOrganizer != null && !existingOrganizer.getId().equals(org.getId())) {
@@ -62,8 +59,8 @@ public class OrganizerService {
 		return repo.save(org);
 	}
 
-	//Update organizer
-	public Organizer updateOrganizer(Organizer newValue, Integer id) {
+	// Update organizer
+	public Organizer update(Organizer newValue, Integer id) {
 
 		Optional<Organizer> old = repo.findById(id);
 //		Organizer old = repo.findById(newValue.getId()).orElseThrow();
@@ -73,7 +70,8 @@ public class OrganizerService {
 			// Check if the email already exists in the database
 			Organizer existingOrganizer = repo.findByEmail(newValue.getEmail());
 			if (existingOrganizer != null && !existingOrganizer.getId().equals(newValue.getId())) {
-				throw new DataIntegrityViolationException("The email address " + newValue.getEmail() + " is already taken.");
+				throw new DataIntegrityViolationException(
+						"The email address " + newValue.getEmail() + " is already taken.");
 			} else {
 				theOld.setContact(newValue.getContact());
 				theOld.setEmail(newValue.getEmail());
@@ -104,10 +102,10 @@ public class OrganizerService {
 		}
 	}
 
-	//Get organizer by Id
-	public Organizer getOrganizer(Integer id) {
+	// Get organizer by Id
+	public Organizer findOne(Integer id) {
 		Organizer organizer = repo.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException("Organizer with id: " + id + " does not exist"));
+				.orElseThrow(() -> new ResourceNotFoundException("Organizer with id: " + id + " does not exist"));
 		return organizer;
 	}
 }

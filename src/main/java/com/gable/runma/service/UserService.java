@@ -83,9 +83,9 @@ public class UserService {
 				theOld.setCountry(newValue.getCountry());
 				theOld.setDistrict(newValue.getDistrict());
 				theOld.setEmail(newValue.getEmail());
-				theOld.setFName(newValue.getFName());
+				theOld.setFirstName(newValue.getFirstName());
 				theOld.setGender(newValue.getGender());
-				theOld.setLName(newValue.getLName());
+				theOld.setLastName(newValue.getLastName());
 				theOld.setPhone(newValue.getPhone());
 				theOld.setPostalCode(newValue.getPostalCode());
 				theOld.setProvince(newValue.getProvince());
