@@ -8,7 +8,9 @@ import com.gable.runma.dto.EventInfoResponse;
 import com.gable.runma.dto.RacetypeDetailResponse;
 
 import com.gable.runma.model.RaceType;
+import com.gable.runma.model.Status;
 import com.gable.runma.repository.OrganizerRepository;
+import com.gable.runma.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class EventService {
 	private RaceTypeRepository raceRepo;
 	@Autowired
 	private OrganizerRepository orgRepo;
+	@Autowired
+	private TicketRepository ticketRepo;
 
 	public EventService() {
 	}
@@ -60,20 +64,18 @@ public class EventService {
 
 		List<RacetypeDetailResponse> ticketRaceTypeInfo = new ArrayList<RacetypeDetailResponse>();
 
-
 		for (RaceType r : event.getRaceTypeList()) {
 
 			RacetypeDetailResponse singleTicketRaceType = new RacetypeDetailResponse();
 			singleTicketRaceType.setRaceName(r.getName());
 			singleTicketRaceType.setPrice(r.getPrice());
 			singleTicketRaceType.setDistance(r.getDistance());
-			//singleTicketRaceType.setSales();
+			singleTicketRaceType.setSales(ticketRepo.findByStatusAndRaceType(Status.paid,r).size());
 			ticketRaceTypeInfo.add(singleTicketRaceType);
 		}
 
 		infoDTO.setRaceTypeDetailList(ticketRaceTypeInfo);
 		return  infoDTO;
 	}
-
 
 }
