@@ -1,19 +1,11 @@
 package com.gable.runma.model;
 import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import lombok.Data;
 
-/**
- * 
- */
+
 @Data
 @Entity
 public class Ticket {
@@ -25,12 +17,15 @@ public class Ticket {
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date paidDate;
-    @ManyToOne
-    private Runner runner;
-    
-    @ManyToOne
-    private RaceType raceType;
-    
-    
+    private String bankName;
+    private Integer amount;
+    private String imageProof;
 
+    @ManyToOne
+    @JoinColumn(name = "userTicketId", nullable = false)
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "race_ticket_id")
+    private RaceType raceType;
 }
