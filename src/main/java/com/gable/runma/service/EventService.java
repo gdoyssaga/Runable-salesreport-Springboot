@@ -70,6 +70,8 @@ public class EventService {
 		}
 	}
 
+
+
 	public Event newEvent(Event event) {
 		Event e = eventRepo.save(event);
 		if (event.getRaceTypeList() != null) {
@@ -143,7 +145,7 @@ public class EventService {
 		return eventRepo.save(oldEvent);
 	}
 
-	public EventInfoResponse getEventInfo(Integer id){
+	public EventInfoResponse getSalesEventInfo(Integer id){
 		Event event = eventRepo.findById(id).orElseThrow();
 		EventInfoResponse infoDTO = new EventInfoResponse(); //DTO
 
