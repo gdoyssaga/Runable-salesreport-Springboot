@@ -35,7 +35,7 @@ public class EventController {
 	public Optional<Event> findOne(@PathVariable Integer id){return service.findOne(id);}
 
 	@GetMapping("/info/{id}")
-	public EventInfoResponse findInfo(@PathVariable Integer id) { return  service.getEventInfo(id);}
+	public EventInfoResponse findInfo(@PathVariable Integer id) { return  service.getSalesEventInfo(id);}
 
 
 

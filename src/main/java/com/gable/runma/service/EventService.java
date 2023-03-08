@@ -55,7 +55,7 @@ public class EventService {
 		}
 	}
 
-	public EventInfoResponse getEventInfo(Integer id){
+	public EventInfoResponse getSalesEventInfo(Integer id){
 		Event event = eventRepo.findById(id).orElseThrow();
 		EventInfoResponse infoDTO = new EventInfoResponse(); //DTO
 
