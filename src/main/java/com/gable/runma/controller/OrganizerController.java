@@ -24,7 +24,6 @@ public class OrganizerController {
 	@GetMapping("/")
 	public List<Organizer> findAll(){
 		return  service.findAll();
-		
 	}
 	@PostMapping("/")
 	public Organizer newOrganizer(@RequestBody Organizer org) {

@@ -1,15 +1,10 @@
 package com.gable.runma.model;
 import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -21,9 +16,9 @@ import lombok.Data;
 @Data
 @Entity
 @JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+        scope = Organizer.class,
+		  generator = ObjectIdGenerators.PropertyGenerator.class,
 		  property = "id")
-
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Organizer {
 	@Id
@@ -36,10 +31,10 @@ public class Organizer {
     private String facebook;
     @Column(unique = true)
     private String email;
-    
-    
-    @ManyToMany(mappedBy = "organizerList")
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "organizerList")
+    @JsonIgnore
     private List<Event> eventList;
-
-
 }
