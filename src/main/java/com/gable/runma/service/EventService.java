@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.gable.runma.dto.EventInfoResponse;
 import com.gable.runma.dto.RacetypeDetailResponse;
+import com.gable.runma.exceptionHandling.EventException;
 
 import com.gable.runma.model.RaceType;
 import com.gable.runma.model.Status;
