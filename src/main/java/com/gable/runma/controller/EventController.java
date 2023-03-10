@@ -51,15 +51,15 @@ public class EventController {
 		return service.update(event);
 	}
 
-	@DeleteMapping("/{id}")
-	void delete(@PathVariable Integer id) {
-		service.delete(id);
-	}
+//	@DeleteMapping("/{id}")
+//	void delete(@PathVariable Integer id) {
+//		service.delete(id);
+//	}
 	
-	@PostMapping("/raceType/")
-	public RaceType newRaceType(@RequestBody RaceType raceType){
-		return service.newRaceType(raceType);
-	}
+//	@PostMapping("/raceType/")
+//	public RaceType newRaceType(@RequestBody RaceType raceType){
+//		return service.newRaceType(raceType);
+//	}
 
 	@GetMapping("/info/{id}")
 	public EventInfoResponse findInfo(@PathVariable Integer id) { return  service.getSalesEventInfo(id);}

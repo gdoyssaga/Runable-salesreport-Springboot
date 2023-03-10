@@ -10,7 +10,7 @@ public record TicketRequest (
 		Date createDate,
 		@NotNull(message = "User ID is required")
 		Integer userId,
-		@NotNull(message = "Racee Type ID is required")
+		@NotNull(message = "Race Type ID is required")
 		Integer raceTypeId
 		) {}
 	
