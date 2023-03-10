@@ -86,65 +86,6 @@ public class EventService {
 		return eventRepo.save(event);
 	}
 
-	public Event update(Event newEvent) {
-		Event oldEvent;
-		oldEvent = eventRepo.findById(newEvent.getId()).orElseThrow(() -> {
-			throw new EventException("Update Fail : Event Not Found");
-		});
-
-		oldEvent.setName(newEvent.getName());
-		oldEvent.setRaceDate(newEvent.getRaceDate());
-		oldEvent.setOpenRegisDate(newEvent.getOpenRegisDate());
-		oldEvent.setCloseRegisDate(newEvent.getCloseRegisDate());
-		oldEvent.setOutOfTicketFlag(newEvent.getOutOfTicketFlag());
-		oldEvent.setProvince(newEvent.getProvince());
-		oldEvent.setLocation(newEvent.getLocation());
-		oldEvent.setCapacity(newEvent.getCapacity());
-
-//		if(newEvent.getOrganizerList() != null) {
-//			List <Organizer> pendingOrg = new ArrayList<Organizer>();
-//			for (Organizer newOrg : newEvent.getOrganizerList()) {
-//				try{
-//					Optional<Organizer> findOrg = orgRepo.findById(newOrg.getId());
-//					if(findOrg.isEmpty()) {
-//						throw new EventException("Update Fail : Organizer not found");
-//					} else {
-//						pendingOrg.add(newOrg);
-//					}
-//				} catch (EventException e) {
-//					System.out.println("Update Fail : Organizer not found"+e);
-//				}
-//			}
-//			oldEvent.setOrganizerList(pendingOrg);
-//		} else
-//		{
-//			oldEvent.setOrganizerList(null);
-//		}
-
-		if (newEvent.getOrganizerList() != null) {
-			List<Organizer> pendingOrg = new ArrayList<Organizer>();
-			for (Organizer newOrg : newEvent.getOrganizerList()) {
-				Organizer findOrg = orgRepo.findById(newOrg.getId()).orElseThrow(() -> {
-					throw new EventException("Update Fail : Event Not Found");
-				});
-				pendingOrg.add(findOrg);
-			}
-			oldEvent.setOrganizerList(pendingOrg);
-		} else {
-			oldEvent.setOrganizerList(null);
-		}
-
-		oldEvent.getRaceTypeList().clear();
-		eventRepo.save(oldEvent);
-
-		if (newEvent.getRaceTypeList() != null) {
-			for (RaceType requestRaceType : newEvent.getRaceTypeList()) {
-				requestRaceType.setEvent(oldEvent);
-				raceRepo.save(requestRaceType);
-			}
-		}
-		return eventRepo.save(oldEvent);
-	}
 
 	public EventInfoResponse getSalesEventInfo(Integer id){
 		Event event = eventRepo.findById(id).orElseThrow();
